@@ -122,7 +122,10 @@
 																						'<div class="contract-trigger"></div>';
 				element.appendChild(element.__resizeTriggers__);
 				resetTriggers(element);
-				element.addEventListener('scroll', scrollListener, true);
+				element.addEventListener('scroll', scrollListener, {
+					capture: true,
+					passive: true
+				} );
 				
 				/* Listen for a css animation to detect element display/re-attach */
 				animationstartevent && element.__resizeTriggers__.addEventListener(animationstartevent, function(e) {
@@ -139,7 +142,10 @@
 		else {
 			element.__resizeListeners__.splice(element.__resizeListeners__.indexOf(fn), 1);
 			if (!element.__resizeListeners__.length) {
-					element.removeEventListener('scroll', scrollListener);
+					element.removeEventListener('scroll', scrollListener, {
+						capture: true,
+						passive: true
+					} );
 					element.__resizeTriggers__ = !element.removeChild(element.__resizeTriggers__);
 			}
 		}
